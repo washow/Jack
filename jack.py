@@ -15,4 +15,6 @@ async def on_message(message):
     if message.content.startswith('!ping'):
        await client.send_message(message.channel, 'Pong!')
 
-client.run("token")
+fh = open('jack.conf', 'r')
+jack_key = fh.readline().rstrip()
+client.run(jack_key)
