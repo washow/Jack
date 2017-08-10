@@ -20,6 +20,8 @@ async def on_member_join(member):
     server = member.server
     fmt = 'Welcome {0.mention} to {1.name}!'
     await client.send_message(member, fmt.format(member, server))
+    mainChannel = discord.utils.get(server.channels, name='general', type=ChannelType.text)
+    await client.send_message(mainChannel, fmt.format(member, server))
 
 fh = open('jack.conf', 'r')
 jack_key = fh.readline().rstrip()
