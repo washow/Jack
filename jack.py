@@ -17,10 +17,10 @@ async def on_message(message):
 
 @client.event
 async def on_member_join(member):
-    myServer = member.server
-    msg = 'Welcome to the Tekken 7 beginners discord MEMBER ! You have been given the NewBlood role to help the bot assign your other roles. Make sure to check out the set_role channel to choose your roles! You can use HELP_COMMAND to see a list of commands or check out bot_commands.'
-    await client.send_message(myServer.default_channel, msg)
-
+    server = member.server
+    fmt = 'Welcome {0.mention} to {1.name}!'
+    await client.send_message(server, fmt.format(member, server))
+    
 fh = open('jack.conf', 'r')
 jack_key = fh.readline().rstrip()
 client.run(jack_key)
