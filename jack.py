@@ -1,6 +1,6 @@
 import discord
 import asyncio
-import re as standardre
+import re
 
 client = discord.Client()
 
@@ -33,7 +33,7 @@ async def on_message(message):
     if message.content.startswith('.myregion'):
         await client.send_message(message.channel, 'Test')
         args = message.content.split()
-        westCoast = standardre.complie('west\s?coast', standardre.i)
+        westCoast = re.compile('west\s?coast', re.i)
         matchVar = westCoast.match(args[1])
         if matchVar:
             await add_roles(message.member, 'WestCoast')
