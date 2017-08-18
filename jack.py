@@ -1,6 +1,6 @@
 import discord
 import asyncio
-import re
+import re as standardre
 
 client = discord.Client()
 
@@ -33,12 +33,12 @@ async def on_message(message):
     if message.content.startswith('.myregion'):
         await client.send_message(message.channel, 'Test')
         args = message.content.split()
-        westCoast = re.complie('west\s?coast', re.i)
-        matchVar = p.match(args[1])
+        westCoast = standardre.complie('west\s?coast', re.i)
+        matchVar = westCoast.match(args[1])
         if matchVar:
             await add_roles(message.member, 'WestCoast')
             await client.send_message(send_message(message.channel, message.user.mention + ' you are in the West Coast!'))
-            
+
 fh = open('jack.conf', 'r')
 jack_key = fh.readline().rstrip()
 client.run(jack_key)
