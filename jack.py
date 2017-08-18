@@ -36,7 +36,7 @@ async def on_message(message):
         westCoast = re.compile('west\s?coast', re.I)
         matchVar = westCoast.match(args[1])
         if matchVar:
-            await add_roles(message.member, 'WestCoast')
+            await client.add_roles(message.member, 'WestCoast')
             await client.send_message(send_message(message.channel, message.user.mention + ' you are in the West Coast!'))
 
 fh = open('jack.conf', 'r')
