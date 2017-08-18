@@ -17,7 +17,7 @@ async def on_message(message):
        await client.send_message(message.channel, 'Pong!')
 
 # Event for when a new memeber joins the server
-# This message will be sent into the general channel
+# This message will be sent into the general channel and as a direct message to the user
 @client.event
 async def on_member_join(member):
     server = member.server
@@ -32,7 +32,13 @@ async def on_member_join(member):
 async def on_message(message):
     if message.content.startswith('.myregion'):
         await client.send_message(message.channel, 'Test')
-
+        args = message.content.split()
+        westCoast = re.complie('west\s?coast', re.i)
+        matchVar = p.match(args[1])
+        if matchVar:
+            await add_roles(message.member, 'WestCoast')
+            await client.send_message(send_message(message.channel, message.user.mention + ' you are in the West Coast!'))
+            
 fh = open('jack.conf', 'r')
 jack_key = fh.readline().rstrip()
 client.run(jack_key)
