@@ -33,7 +33,7 @@ async def on_message(message):
     if message.content.startswith('.myregion'):
         await client.send_message(message.channel, 'Test')
         args = message.content.split()
-        westCoast = re.compile('west\s?coast', re.i)
+        westCoast = re.compile('west\s?coast', re.I)
         matchVar = westCoast.match(args[1])
         if matchVar:
             await add_roles(message.member, 'WestCoast')
