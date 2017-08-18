@@ -1,5 +1,6 @@
 import discord
 import asyncio
+import re
 
 client = discord.Client()
 
@@ -15,13 +16,22 @@ async def on_message(message):
     if message.content.startswith('!ping'):
        await client.send_message(message.channel, 'Pong!')
 
+# Event for when a new memeber joins the server
+# This message will be sent into the general channel
 @client.event
 async def on_member_join(member):
     server = member.server
+    # TODO: Uppdate the welcome mention with what will be said in TekkenNB
     fmt = 'Welcome {0.mention} to {1.name}!'
     await client.send_message(member, fmt.format(member, server))
     mainChannel = discord.utils.get(server.channels, name='general')
     await client.send_message(mainChannel, fmt.format(member, server))
+
+# Event for when a user wants to change their region
+@client.event
+async def on_message(message):
+    if message.content.startswith('.myregion'):
+        await client.send_message(message.channel, 'Test')
 
 fh = open('jack.conf', 'r')
 jack_key = fh.readline().rstrip()
