@@ -30,6 +30,7 @@ async def on_member_join(member):
 # Event for when a user wants to change their region
 @client.event
 async def on_message(message):
+    server = message.author.server
     if message.content.startswith('.myregion'):
         await client.send_message(message.channel, 'Test')
         args = message.content.split()
