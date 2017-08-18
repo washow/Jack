@@ -32,10 +32,10 @@ async def on_member_join(member):
 async def on_message(message):
     server = message.author.server
     if message.content.startswith('.myregion'):
-        args = message.content.split()
+        args = message.content.split(" ", 1)
         westCoast = re.compile('west\s?coast', re.I)
-        matchVar = westCoast.match(args[1])
-        if matchVar:
+        matchWC = westCoast.match(args[1])
+        if matchWC:
             westCoastRole = discord.utils.get(server.roles, name='WestCoast')
             await client.add_roles(message.author, westCoastRole)
             await client.send_message(message.channel, message.author.mention + ' you are in the West Coast!')
