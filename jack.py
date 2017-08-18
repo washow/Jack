@@ -1,6 +1,7 @@
 import discord
 import asyncio
 import re as standardre
+import poopydoopy
 
 client = discord.Client()
 
