@@ -38,7 +38,7 @@ async def on_message(message):
         matchVar = westCoast.match(args[1])
         if matchVar:
             westCoastRole = discord.utils.get(server.roles, name='WestCoast')
-            await client.add_roles(message.author, [westCoastRole])
+            await client.add_roles(message.author, westCoastRole)
             # await client.send_message(send_message(message.channel, message.author.mention + ' you are in the West Coast!'))
 
 fh = open('jack.conf', 'r')
