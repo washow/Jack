@@ -1,8 +1,10 @@
 import discord
 import asyncio
 import re
+import csv
 
 client = discord.Client()
+tnb_quotes = []
 
 @client.event
 async def on_ready():
@@ -16,30 +18,22 @@ async def on_message(message):
     if message.content.startswith('!ping'):
        await client.send_message(message.channel, 'Pong!')
 
-# Event for when a new memeber joins the server
-# This message will be sent into the general channel and as a direct message to the user
-@client.event
-async def on_member_join(member):
-    server = member.server
-    # TODO: Uppdate the welcome mention with what will be said in TekkenNB
-    fmt = 'Welcome {0.mention} to {1.name}!'
-    await client.send_message(member, fmt.format(member, server))
-    mainChannel = discord.utils.get(server.channels, name='general')
-    await client.send_message(mainChannel, fmt.format(member, server))
-
 # Event for when a user wants to change their region
 @client.event
 async def on_message(message):
     server = message.author.server
-    if message.content.startswith('.myregion'):
-        args = message.content.split(" ", 1)
-        westCoast = re.compile('west\s?coast', re.I)
-        matchWC = westCoast.match(args[1])
-        if matchWC:
-            westCoastRole = discord.utils.get(server.roles, name='WestCoast')
-            await client.add_roles(message.author, westCoastRole)
-            await client.send_message(message.channel, message.author.mention + ' you are in the West Coast!')
+    if message.content.startswith('^tnbquote'):
+        myquote = get_quote()
+        await client.send_message(message.channel, myquote)
 
 fh = open('jack.conf', 'r')
 jack_key = fh.readline().rstrip()
 client.run(jack_key)
+with open('Tnbquotes.csv', newline='') as csvfile:
+    reader = csv.reader(csvfile)
+    for row in reader:
+        new_quote = row['What is the quote?'] + " -"+row['Who said it?']
+        tnb_quotes.append(new_quote)
+
+for q in tnb_quotes:
+    print(q)
