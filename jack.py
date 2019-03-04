@@ -6,25 +6,25 @@ import csv
 client = discord.Client()
 tnb_quotes = []
 
-@client.event
-async def on_ready():
+@client.async_event
+def on_ready():
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
     print('------')
 
-@client.event
-async def on_message(message):
+@client.async_event
+def on_message(message):
     if message.content.startswith('!ping'):
-       await client.send_message(message.channel, 'Pong!')
+       yield from client.send_message(message.channel, 'Pong!')
 
 # Event for when a user wants to change their region
-@client.event
-async def on_message(message):
+@client.async_event
+def on_message(message):
     server = message.author.server
     if message.content.startswith('^tnbquote'):
         myquote = get_quote()
-        await client.send_message(message.channel, myquote)
+        yield from client.send_message(message.channel, myquote)
 
 fh = open('jack.conf', 'r')
 jack_key = fh.readline().rstrip()
