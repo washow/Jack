@@ -29,7 +29,7 @@ def on_message(message):
 with open('Tnbquotes.csv', newline='') as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
-        new_quote = row[1] + " -"+row[2]
+        new_quote = row[2] + " -"+row[1]
         tnb_quotes.append(new_quote)
 
 for q in tnb_quotes:
