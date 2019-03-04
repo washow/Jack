@@ -2,6 +2,7 @@ import discord
 import asyncio
 import re
 import csv
+import random
 
 client = discord.Client()
 tnb_quotes = []
@@ -18,17 +19,13 @@ def on_message(message):
     if message.content.startswith('!ping'):
        yield from client.send_message(message.channel, 'Pong!')
 
-# Event for when a user wants to change their region
+# Event for when a user wants to print a quote
 @client.async_event
 def on_message(message):
     server = message.author.server
     if message.content.startswith('^tnbquote'):
-        myquote = get_quote()
-        yield from client.send_message(message.channel, myquote)
+        yield from client.send_message(message.channel, random.choice(tnb_quotes))
 
-fh = open('jack.conf', 'r')
-jack_key = fh.readline().rstrip()
-client.run(jack_key)
 with open('Tnbquotes.csv', newline='') as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
@@ -37,3 +34,7 @@ with open('Tnbquotes.csv', newline='') as csvfile:
 
 for q in tnb_quotes:
     print(q)
+
+fh = open('jack.conf', 'r')
+jack_key = fh.readline().rstrip()
+client.run(jack_key)
