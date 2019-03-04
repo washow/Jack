@@ -29,7 +29,8 @@ def on_message(message):
 with open('Tnbquotes.csv', newline='') as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
-        if "nig" not in row[2]:
+        tempquote = row[2].lower()
+        if "nig" not in tempquote:
             new_quote = row[2] + " -"+row[1]
             tnb_quotes.append(new_quote)
 
